@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/boconlonton/js-nodejs-docker-devops#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
