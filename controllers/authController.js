@@ -10,6 +10,7 @@ exports.signUp = async (req, res, next) => {
       username: username,
       password: hashPassword,
     });
+    req.session.user = newUser;
     res.status(201).json({
       status: "success",
       data: {
@@ -29,6 +30,7 @@ exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
+      req.session.user = User;
       res.status(404).json({
         status: "failed",
         message: "user not found",

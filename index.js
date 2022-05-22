@@ -64,10 +64,6 @@ app.use(
 // Middleware for parsing Request Body
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("<h2>Hi there bocon</h2>");
-});
-
 app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/users", userRouter);
 
