@@ -8,6 +8,7 @@ services:
       - PORT=3000
     depends_on:
       - mongo
+      - redis
   
   mongo:
     image: mongo
@@ -16,6 +17,9 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
       - mongo-db:/data/db
+  
+  redis:
+    image: redis
 
 volumes:
   mongo-db:
