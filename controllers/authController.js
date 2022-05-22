@@ -23,3 +23,34 @@ exports.signUp = async (req, res, next) => {
     });
   }
 };
+
+exports.login = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.status(404).json({
+        status: "failed",
+        message: "user not found",
+      });
+    }
+
+    const isCorrect = await bcrypt.compare(password, user.password);
+
+    if (isCorrect) {
+      res.status(200).json({
+        status: "success",
+      });
+    } else {
+      res.status(400).json({
+        status: "failed",
+        message: "Invalid username or password",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({
+      status: "failed",
+    });
+  }
+};
