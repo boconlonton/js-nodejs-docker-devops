@@ -14,14 +14,14 @@ const {
   SESSION_SECRET,
 } = require("./config/config");
 
-let redisClient = redis.createClient({
-  host: REDIS_URL,
-  port: REDIS_PORT,
+const redisClient = redis.createClient({
+  url: `redis://${REDIS_URL}:${REDIS_PORT}`,
+  legacyMode: true,
 });
 
-redisClient.on("error", (err) => {
-  console.log("Error " + err);
-});
+redisClient.on("connect", () => console.log("Connected to Redis"));
+redisClient.on("error", (err) => console.log("Redis Client Error"));
+redisClient.connect();
 
 const postRouter = require("./routes/postRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -51,7 +51,7 @@ app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     cookie: {
       secure: false,
