@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 exports.signUp = async (req, res, next) => {
   const { username, password } = req.body;
+  console.log("INFO: RUNNING");
   // Hash password
   const hashPassword = await bcrypt.hash(password, 12);
   try {
